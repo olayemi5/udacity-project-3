@@ -15,9 +15,9 @@
   pre_tasks:
     - name: "wait 600 seconds for target connection to become reachable/usable."
       ansible.builtin.wait_for:
-        timeout: 300
+        timeout: 6000
       delegate_to: all
-      
+
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
