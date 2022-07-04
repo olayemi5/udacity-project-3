@@ -146,13 +146,16 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["2a:c8:6a:e2:fd:5d:01:ec:98:82:f2:41:24:14:2c:18"] 
       - attach_workspace:
-          at: ~/.circleci/ansible
+          at: ~/.circleci/ansible/roles
       - run:
           name: Install dependencies
           command: |
             apk add --update ansible
             apk add tar gzip 
-            apk add awscli 
+            apk add python curl
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Configure server 
           command: |
@@ -176,5 +179,5 @@ workflows:
       - deploy-infrastructure:
           requires: [build-backend]
       - configure-infrastructure:
-          requires: [build-backend]
+          requires: [deploy-infrastructure]
       
