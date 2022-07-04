@@ -169,10 +169,10 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            npm install
+            npm i aws-cli
+            npm audit fix
             npm audit fix --audit-level=critical --force
             npm audit --audit-level=critical
-            npm i aws-cli
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration results to kvdb
