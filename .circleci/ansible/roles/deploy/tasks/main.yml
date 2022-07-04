@@ -4,7 +4,7 @@
   commands: |
     tar –xvzf artifact.tar.gz
 
-- name: "start the application"
+- name: "starting the application"
   become: yes
   commands: |
     npm install
