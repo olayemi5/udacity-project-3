@@ -2,9 +2,7 @@
   - name: "extract artifact into ec2 instance"
     become: yes
     shell:
-      pwd 
-      cd root
-      tar -xf artifact.tar.gz
+      echo "well"
 
   - name: "starting the application"
     become: yes
