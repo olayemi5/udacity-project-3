@@ -200,7 +200,8 @@ jobs:
       - run:
           name: Install Ansible
           command: |
-            yum install ansible -y
+            yum -y update
+            yum install ansible
       - run:
           name: Install Node
           command: |
@@ -235,6 +236,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
+            apk add --no-cache aws-cli
             apk add --update ansible
             apk add tar gzip 
             apk add --update nodejs npm
