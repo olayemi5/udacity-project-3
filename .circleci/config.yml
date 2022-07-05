@@ -171,6 +171,7 @@ jobs:
             cd backend
             npm i aws-cli
             npm run migrations > migrations_dump.txt
+            cat migrations_dump.txt
       - run:
           name: Send migration results to kvdb
           command: |   
@@ -186,6 +187,10 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout
+      - run:
+          name: Install tar utility
+          command: |
+            yum install -y tar gzip
       - attach_workspace:
           at: .circleci/ansible/
       - run:
@@ -232,7 +237,7 @@ jobs:
           command: |
             apk add --update ansible
             apk add tar gzip 
-            apk add nodejs 
+            apk add --update nodejs npm
       - run:
           name: Deploy backend
           command: |
