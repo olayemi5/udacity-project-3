@@ -18,12 +18,13 @@ commands:
           name: Revert migrations
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
-            if(( $SUCCESS==1 )); 
+            SUCCESS = curl https://kvdb.io/3d7mYrNMuy9Pfq5E5yh3yP/migration_${CIRCLE_WORKFLOW_ID:0:7}
+            if(( $SUCCESS == 1 )); 
             then
               cd ~/project/backend
               npm run migrations:revert
             fi
+
 jobs:
   build-frontend:
     docker:
