@@ -265,7 +265,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------" 
             cat inventory.txt 
             ls
-            ansible web -m copy -e "ansible_host_key_checking=false ansible_python_interpreter=/usr/bin/python3 ansible_stdout_callback=yaml" -a "src=artifact.tar.gz dest=artifact.tar.gz mode=0644" -i inventory.txt -b 
+            ansible web -m synchronize -e "ansible_host_key_checking=false ansible_python_interpreter=/usr/bin/python3 ansible_stdout_callback=yaml" -a "src=artifact.tar.gz dest=artifact.tar.gz" -i inventory.txt -b 
             ansible-playbook -i inventory.txt deploy-backend.yml 
       - destroy-environment 
       - revert-migrations 
