@@ -197,7 +197,7 @@ jobs:
 
   deploy-frontend:
     docker: 
-      - image: amazon/aws-cli
+      - image:  python:3.7-alpine3.11
     steps:
       - checkout
       - run:
@@ -207,14 +207,15 @@ jobs:
       - attach_workspace:
           at: .circleci/ansible/
       - run:
-          name: Install python
+          name: Install dependencies
           command: |
-            yum install python3 -y
-      - run:
-          name: Install Node
-          command: |
-            yum --enablerepo=extras install epel-release
-            yum install nodejs npm --enablerepo=epel
+            apk add python curl
+            apk add --update ansible
+            apk add tar gzip 
+            apk add --update nodejs npm
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Get backend url
           command: |
