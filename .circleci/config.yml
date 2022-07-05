@@ -265,7 +265,6 @@ jobs:
             echo "Contents  of the inventory.txt file is -------" 
             cat inventory.txt 
             pwd
-            #ansible -m copy -i inventory.txt  -a "src=artifact.tar.gz dest=artifact.tar.gz" --list-hosts "web"
             echo "Hello World" > text.txt
             ansible -m copy -i inventory.txt  -a "src=text.txt dest=text.txt"
             ansible-playbook -i inventory.txt deploy-backend.yml 
