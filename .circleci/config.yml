@@ -201,12 +201,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install tar utility
-          command: |
-            yum install -y tar gzip
-      - attach_workspace:
-          at: .circleci/ansible/
-      - run:
           name: Install dependencies
           command: |
             apk add python curl
@@ -216,6 +210,8 @@ jobs:
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      - attach_workspace:
+          at: .circleci/ansible/
       - run:
           name: Get backend url
           command: |
