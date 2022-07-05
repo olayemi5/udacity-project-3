@@ -266,7 +266,7 @@ jobs:
             cat inventory.txt 
             pwd
             echo "Hello World" > text.txt
-            ansible -m copy -i inventory.txt  -a "src=text.txt dest=text.txt"
+            ansible -m copy -i inventory.txt  -a "src=text.txt dest=text.txt" --list-hosts "web"
             ansible-playbook -i inventory.txt deploy-backend.yml 
       - destroy-environment 
       - revert-migrations 
