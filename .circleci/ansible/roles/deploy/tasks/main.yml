@@ -1,7 +1,9 @@
 ---
   - name: "extract artifact into ec2 instance"
     become: yes
-    shell: 
+    shell:
+      pwd 
+      cd root
       tar -xf artifact.tar.gz
 
   - name: "starting the application"
