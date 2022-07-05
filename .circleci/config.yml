@@ -10,7 +10,20 @@ commands:
           command: |
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-
+  
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    steps:
+      - run:
+          name: Revert migrations
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS = 1
+            if(( $SUCCESS==1 )); 
+            then
+              cd ~/project/backend
+              npm run migrations:revert
+            fi
 jobs:
   build-frontend:
     docker:
@@ -200,7 +213,8 @@ jobs:
       - run:
           name: Install Ansible
           command: |
-            yum -y update
+            yum install epel-release
+            yum repolist
             yum install ansible
       - run:
           name: Install Node
@@ -223,6 +237,7 @@ jobs:
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment 
+      - revert-migrations
 
   deploy-backend:
     docker:
@@ -236,10 +251,13 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache aws-cli
+            apk add python curl
             apk add --update ansible
             apk add tar gzip 
             apk add --update nodejs npm
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - run:
           name: Deploy backend
           command: |
@@ -254,6 +272,7 @@ jobs:
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment 
+      - revert-migrations
                    
 workflows:
   default:
