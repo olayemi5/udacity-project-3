@@ -264,8 +264,8 @@ jobs:
             cd .circleci/ansible 
             echo "Contents  of the inventory.txt file is -------" 
             cat inventory.txt 
-            tail -n +2 "inventory.txt" > host.txt
-            ansible -i host.txt -m copy -a "src=artifact.tar.gz dest=artifact.tar.gz"
+            ls
+            ansible web -m copy -a "src=artifact.tar.gz dest=artifact.tar.gz owner=apache group=apache mode=0644" -i inventory.txt -b
             ansible-playbook -i inventory.txt deploy-backend.yml 
       - destroy-environment 
       - revert-migrations 
