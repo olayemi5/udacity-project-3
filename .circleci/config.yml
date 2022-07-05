@@ -16,6 +16,7 @@ commands:
     steps:
       - run:
           name: Revert migrations
+          working_directory: ./backend
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
@@ -264,9 +265,6 @@ jobs:
             cd .circleci/ansible 
             echo "Contents  of the inventory.txt file is -------" 
             cat inventory.txt 
-            pwd
-            echo "Hello World" > text.txt
-            ansible -m copy -i inventory.txt  -a "src=text.txt dest=text.txt" --list-hosts "web"
             ansible-playbook -i inventory.txt deploy-backend.yml 
       - destroy-environment 
       - revert-migrations 
