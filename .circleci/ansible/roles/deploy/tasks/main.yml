@@ -1,12 +1,12 @@
 ---
   - name: "extract artifact into ec2 instance"
     become: yes
-    commands: |
-      tar –xvzf artifact.tar.gz
+    shell: 
+      " tar –xvzf artifact.tar.gz "
 
   - name: "starting the application"
     become: yes
-    commands: |
+    shell: 
       npm install
       pm2 stop default
       pm2 start npm -- start

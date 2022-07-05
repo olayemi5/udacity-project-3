@@ -211,12 +211,6 @@ jobs:
           command: |
             yum install python3 -y
       - run:
-          name: Install Ansible
-          command: |
-            yum install epel-release
-            yum repolist
-            yum install ansible
-      - run:
           name: Install Node
           command: |
             yum install nodejs -y
