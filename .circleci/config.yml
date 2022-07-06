@@ -207,7 +207,7 @@ jobs:
         - checkout
 
         - attach_workspace:
-            at: ~/
+            at: .circleci/ansible/
         - run: 
             name: Install dependencies
             command: |
@@ -249,7 +249,7 @@ jobs:
               - "2a:c8:6a:e2:fd:5d:01:ec:98:82:f2:41:24:14:2c:18"
         
         - attach_workspace:
-            at: ~/
+            at: .circleci/ansible/
           
         - run:
             name: "Install dependencies"
