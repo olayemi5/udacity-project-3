@@ -26,7 +26,6 @@
   become: yes
   apt:
     name: 
-      - yum
       - nodejs
       - npm
     state: latest
@@ -34,8 +33,11 @@
   
 - name: install rsync on the ansible controller
   become: yes
-  shell:
-    yum install rsync -y
+  connection: local
+  ansible.builtin.yum:
+    name:
+      - rsync
+    state: present
 
 - name: "install pm2"
   become: yes
