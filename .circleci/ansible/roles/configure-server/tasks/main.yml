@@ -31,14 +31,6 @@
     state: latest
     update_cache: yes
   
-- name: install rsync on the ansible controller
-  become: yes
-  connection: local
-  ansible.builtin.yum:
-    name:
-      - rsync
-    state: present
-
 - name: "install pm2"
   become: yes
   npm:
