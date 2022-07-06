@@ -28,7 +28,7 @@
     name: rsync
     state: present
 
-- name: "install other dependencies"
+- name: "install other dependencies" 
   become: yes
   apt:
     name: 
