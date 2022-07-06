@@ -22,21 +22,21 @@
     state: latest
     update_cache: yes
 
-- name: install rsync on the ansible controller
-  become: yes
-  shell:
-    yum install rsync -y
-
 - name: "install other dependencies" 
   become: yes
   apt:
     name: 
-      - rsync
+      - yum
       - nodejs
       - npm
     state: latest
     update_cache: yes
   
+- name: install rsync on the ansible controller
+  become: yes
+  shell:
+    yum install rsync -y
+
 - name: "install pm2"
   become: yes
   npm:
