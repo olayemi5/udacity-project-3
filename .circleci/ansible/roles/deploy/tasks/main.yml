@@ -13,14 +13,14 @@
     become: yes
     synchronize:
       src: ../../backend
-      dest: /home/ubuntu/uda_app
+      dest: /home/ubuntu/udapeople_app
       recursive: true
 
   - name: "copy node_modules"
     become: yes
     synchronize:
       src: ../../backend/node_modules
-      dest: /home/ubuntu/uda_app
+      dest: /home/ubuntu/udapeople_app
       recursive: true
 
   - name: "delete anything that might already be running"
@@ -32,7 +32,7 @@
     become: true
     command: pm2 start -f ./main.js
     args:
-      chdir: /home/ubuntu/uda_app/backend/dist
+      chdir: /home/ubuntu/udapeople_app/backend/dist
     environment:
      ENVIRONMENT: production
      TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
