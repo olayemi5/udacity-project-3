@@ -21,7 +21,7 @@
     synchronize:
       src: ../../backend/node_modules
       dest: /home/ubuntu/uda_app
-    recursive: true
+      recursive: true
 
   - name: "delete anything that might already be running"
     become: true
