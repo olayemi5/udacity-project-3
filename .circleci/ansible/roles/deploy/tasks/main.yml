@@ -30,10 +30,7 @@
 
   - name: "start server"
     become: true
-    shell: 
-      cd udapeople_app/backend/dist
-      echo
-      pm2 start -f udapeople_app/backend/dist/main.js
+    command: pm2 start -f udapeople_app/backend/dist/main.js
     environment:
       ENVIRONMENT: production
       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
